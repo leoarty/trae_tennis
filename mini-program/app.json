@@ -3,8 +3,7 @@
     "pages/index/index",
     "pages/booking/court-list/court-list",
     "pages/booking/time-select/time-select",
-    "pages/booking/confirm/confirm",
-    "pages/logs/logs"
+    "pages/booking/confirm/confirm"
   ],
   "window": {
     "backgroundTextStyle": "light",
