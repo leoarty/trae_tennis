@@ -21,8 +21,8 @@
           </view>
         </view>
         <text class="court-address">{{item.address}}</text>
-        <view class="court-tags">
-          <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        <view class="court-types">
+          <text class="type-tag" wx:for="{{item.courtTypes}}" wx:for-item="type" wx:key="type">{{type.type}} {{type.count}}片</text>
         </view>
         <view class="court-footer">
           <view class="price-info">

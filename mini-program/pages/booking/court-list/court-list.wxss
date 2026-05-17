@@ -88,13 +88,13 @@
   display: block;
 }
 
-.court-tags {
+.court-types {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 20rpx;
 }
 
-.tag {
+.type-tag {
   background-color: #e6f7ff;
   color: #1890ff;
   font-size: 22rpx;

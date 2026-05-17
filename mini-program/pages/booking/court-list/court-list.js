@@ -17,7 +17,13 @@ Page({
         tags: ['室内', '硬地', '灯光'],
         rating: 4.8,
         bookingUrl: 'https://mp.weixin.qq.com/s?__biz=MzA5NjEyMDUyMA==&mid=2651012345&idx=1&sn=abc123',
-        openTime: '07:00-22:00'
+        openTime: '07:00-22:00',
+        courtTypes: [
+          { type: '室内硬地', count: 12, priceAdjust: 1.2 },
+          { type: '室内红土', count: 2, priceAdjust: 1.5 },
+          { type: '室外硬地', count: 20, priceAdjust: 1.0 },
+          { type: '室外草地', count: 3, priceAdjust: 1.3 }
+        ]
       },
       {
         id: 2,
@@ -35,7 +41,11 @@ Page({
         tags: ['室外', '硬地'],
         rating: 4.6,
         bookingUrl: 'http://www.noscapp.cn/noscwechat/',
-        openTime: '08:00-22:00'
+        openTime: '08:00-22:00',
+        courtTypes: [
+          { type: '室内硬地', count: 8, priceAdjust: 1.2 },
+          { type: '室外硬地', count: 12, priceAdjust: 1.0 }
+        ]
       },
       {
         id: 3,
@@ -53,7 +63,10 @@ Page({
         tags: ['室外', '硬地'],
         rating: 4.5,
         bookingUrl: 'https://www.sun-park.com/?theme=dark#/booking/site#btns',
-        openTime: '07:00-23:00'
+        openTime: '07:00-23:00',
+        courtTypes: [
+          { type: '室外硬地', count: 10, priceAdjust: 1.0 }
+        ]
       },
       {
         id: 4,
@@ -71,7 +84,11 @@ Page({
         tags: ['室内', '硬地'],
         rating: 4.3,
         bookingUrl: 'https://www.bjsports.gov.cn/',
-        openTime: '08:00-22:00'
+        openTime: '08:00-22:00',
+        courtTypes: [
+          { type: '室内硬地', count: 4, priceAdjust: 1.2 },
+          { type: '室外硬地', count: 2, priceAdjust: 1.0 }
+        ]
       },
       {
         id: 5,
@@ -89,7 +106,11 @@ Page({
         tags: ['室外', '硬地'],
         rating: 4.2,
         bookingUrl: 'https://www.bjdch.gov.cn/zwgk/sjgk/sjxz/whty/',
-        openTime: '08:00-22:00'
+        openTime: '08:00-22:00',
+        courtTypes: [
+          { type: '室内硬地', count: 4, priceAdjust: 1.2 },
+          { type: '室外硬地', count: 2, priceAdjust: 1.0 }
+        ]
       }
     ],
     districtFilter: '全部',
@@ -113,8 +134,9 @@ Page({
     const courtId = e.currentTarget.dataset.id
     const court = this.data.courts.find(c => c.id === courtId)
     const pricesStr = encodeURIComponent(JSON.stringify(court.prices))
+    const courtTypesStr = encodeURIComponent(JSON.stringify(court.courtTypes))
     wx.navigateTo({
-      url: `/pages/booking/time-select/time-select?courtId=${courtId}&courtName=${court.name}&price=${court.price}&bookingUrl=${encodeURIComponent(court.bookingUrl)}&openTime=${court.openTime}&prices=${pricesStr}`
+      url: `/pages/booking/time-select/time-select?courtId=${courtId}&courtName=${court.name}&price=${court.price}&bookingUrl=${encodeURIComponent(court.bookingUrl)}&openTime=${court.openTime}&prices=${pricesStr}&courtTypes=${courtTypesStr}`
     })
   }
 })
