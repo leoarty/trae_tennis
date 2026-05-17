@@ -19,7 +19,7 @@
     <view class="time-grid">
       <view class="time-item {{item.available ? '' : 'unavailable'}} {{item.selected ? 'selected' : ''}}" wx:for="{{timeSlots}}" wx:key="time" bindtap="toggleTimeSlot" data-index="{{index}}">
         <text class="time-text">{{item.time}}</text>
-        <text class="time-status">{{item.available ? (item.selected ? '已选' : '可约') : '已满')}}</text>
+        <text class="time-status">{{item.statusText}}</text>
       </view>
     </view>
   </view>
