@@ -75,8 +75,16 @@ Page({
       cancelText: '取消',
       success: (res) => {
         if (res.confirm) {
-          wx.navigateTo({
-            url: `/pages/booking/webview/webview?url=${encodeURIComponent(this.data.bookingUrl)}&title=${encodeURIComponent(this.data.courtName)}`
+          wx.setClipboardData({
+            data: this.data.bookingUrl,
+            success: () => {
+              wx.showModal({
+                title: '链接已复制',
+                content: '官方预约链接已复制到剪贴板，请粘贴到浏览器中打开',
+                showCancel: false,
+                confirmText: '我知道了'
+              })
+            }
           })
         }
       }
