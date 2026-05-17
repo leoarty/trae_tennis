@@ -7,22 +7,22 @@ Page({
     selectedTimeSlots: [],
     dates: [],
     timeSlots: [
-      { time: '06:00-07:00', available: true, selected: false },
-      { time: '07:00-08:00', available: true, selected: false },
-      { time: '08:00-09:00', available: false, selected: false },
-      { time: '09:00-10:00', available: true, selected: false },
-      { time: '10:00-11:00', available: true, selected: false },
-      { time: '11:00-12:00', available: false, selected: false },
-      { time: '12:00-13:00', available: true, selected: false },
-      { time: '13:00-14:00', available: true, selected: false },
-      { time: '14:00-15:00', available: true, selected: false },
-      { time: '15:00-16:00', available: false, selected: false },
-      { time: '16:00-17:00', available: true, selected: false },
-      { time: '17:00-18:00', available: true, selected: false },
-      { time: '18:00-19:00', available: true, selected: false },
-      { time: '19:00-20:00', available: false, selected: false },
-      { time: '20:00-21:00', available: true, selected: false },
-      { time: '21:00-22:00', available: true, selected: false }
+      { time: '06:00-07:00', available: true, selected: false, statusText: '可约' },
+      { time: '07:00-08:00', available: true, selected: false, statusText: '可约' },
+      { time: '08:00-09:00', available: false, selected: false, statusText: '已满' },
+      { time: '09:00-10:00', available: true, selected: false, statusText: '可约' },
+      { time: '10:00-11:00', available: true, selected: false, statusText: '可约' },
+      { time: '11:00-12:00', available: false, selected: false, statusText: '已满' },
+      { time: '12:00-13:00', available: true, selected: false, statusText: '可约' },
+      { time: '13:00-14:00', available: true, selected: false, statusText: '可约' },
+      { time: '14:00-15:00', available: true, selected: false, statusText: '可约' },
+      { time: '15:00-16:00', available: false, selected: false, statusText: '已满' },
+      { time: '16:00-17:00', available: true, selected: false, statusText: '可约' },
+      { time: '17:00-18:00', available: true, selected: false, statusText: '可约' },
+      { time: '18:00-19:00', available: true, selected: false, statusText: '可约' },
+      { time: '19:00-20:00', available: false, selected: false, statusText: '已满' },
+      { time: '20:00-21:00', available: true, selected: false, statusText: '可约' },
+      { time: '21:00-22:00', available: true, selected: false, statusText: '可约' }
     ],
     totalPrice: 0
   },
@@ -66,7 +66,11 @@ Page({
     const date = e.currentTarget.dataset.date
     this.setData({
       selectedDate: date,
-      timeSlots: this.data.timeSlots.map(slot => ({ ...slot, selected: false })),
+      timeSlots: this.data.timeSlots.map(slot => ({
+        ...slot,
+        selected: false,
+        statusText: slot.available ? '可约' : '已满'
+      })),
       selectedTimeSlots: [],
       totalPrice: 0
     })
@@ -80,7 +84,12 @@ Page({
 
     const timeSlots = this.data.timeSlots.map((s, i) => {
       if (i === index) {
-        return { ...s, selected: !s.selected }
+        const selected = !s.selected
+        return {
+          ...s,
+          selected: selected,
+          statusText: selected ? '已选' : '可约'
+        }
       }
       return s
     })
