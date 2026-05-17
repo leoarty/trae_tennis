@@ -6,6 +6,13 @@ Page({
         name: '国家网球中心',
         address: '北京市朝阳区林萃路2号',
         price: 130,
+        priceRange: '100-300',
+        prices: {
+          weekdayDay: 120,
+          weekdayNight: 200,
+          weekendDay: 150,
+          weekendNight: 300
+        },
         image: 'https://picsum.photos/400/200?random=1',
         tags: ['室内', '硬地', '灯光'],
         rating: 4.8,
@@ -17,6 +24,13 @@ Page({
         name: '奥体中心网球场',
         address: '北京市朝阳区安定路1号',
         price: 140,
+        priceRange: '120-350',
+        prices: {
+          weekdayDay: 120,
+          weekdayNight: 220,
+          weekendDay: 140,
+          weekendNight: 350
+        },
         image: 'https://picsum.photos/400/200?random=2',
         tags: ['室外', '硬地'],
         rating: 4.6,
@@ -28,6 +42,13 @@ Page({
         name: '朝阳公园网球馆',
         address: '北京市朝阳区朝阳公园南路1号',
         price: 120,
+        priceRange: '90-150',
+        prices: {
+          weekdayDay: 90,
+          weekdayNight: 150,
+          weekendDay: 120,
+          weekendNight: 150
+        },
         image: 'https://picsum.photos/400/200?random=3',
         tags: ['室外', '硬地'],
         rating: 4.5,
@@ -39,6 +60,13 @@ Page({
         name: '海淀体育中心',
         address: '北京市海淀区颐和园路12号',
         price: 110,
+        priceRange: '90-130',
+        prices: {
+          weekdayDay: 90,
+          weekdayNight: 130,
+          weekendDay: 110,
+          weekendNight: 130
+        },
         image: 'https://picsum.photos/400/200?random=4',
         tags: ['室内', '硬地'],
         rating: 4.3,
@@ -50,6 +78,13 @@ Page({
         name: '天坛体育中心',
         address: '北京市东城区体育馆路4号',
         price: 80,
+        priceRange: '40-100',
+        prices: {
+          weekdayDay: 40,
+          weekdayNight: 100,
+          weekendDay: 80,
+          weekendNight: 100
+        },
         image: 'https://picsum.photos/400/200?random=5',
         tags: ['室外', '硬地'],
         rating: 4.2,
@@ -77,8 +112,9 @@ Page({
   selectCourt(e) {
     const courtId = e.currentTarget.dataset.id
     const court = this.data.courts.find(c => c.id === courtId)
+    const pricesStr = encodeURIComponent(JSON.stringify(court.prices))
     wx.navigateTo({
-      url: `/pages/booking/time-select/time-select?courtId=${courtId}&courtName=${court.name}&price=${court.price}&bookingUrl=${encodeURIComponent(court.bookingUrl)}&openTime=${court.openTime}`
+      url: `/pages/booking/time-select/time-select?courtId=${courtId}&courtName=${court.name}&price=${court.price}&bookingUrl=${encodeURIComponent(court.bookingUrl)}&openTime=${court.openTime}&prices=${pricesStr}`
     })
   }
 })

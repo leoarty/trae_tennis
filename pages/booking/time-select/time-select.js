@@ -3,6 +3,7 @@ Page({
     courtId: null,
     courtName: '',
     price: 0,
+    prices: null,
     bookingUrl: '',
     openTime: '08:00-22:00',
     selectedDate: '',
@@ -13,11 +14,12 @@ Page({
   },
 
   onLoad(options) {
-    const { courtId, courtName, price, bookingUrl, openTime } = options
+    const { courtId, courtName, price, bookingUrl, openTime, prices } = options
     this.setData({
       courtId: parseInt(courtId),
       courtName,
       price: parseInt(price),
+      prices: prices ? JSON.parse(decodeURIComponent(prices)) : null,
       bookingUrl: bookingUrl || '',
       openTime: openTime || '08:00-22:00',
       dates: this.generateDates(),
@@ -79,6 +81,22 @@ Page({
     })
   },
 
+  getSlotPrice(timeStr) {
+    const prices = this.data.prices
+    if (!prices) return this.data.price
+
+    const hour = parseInt(timeStr.split(':')[0])
+    const date = new Date(this.data.selectedDate)
+    const dayOfWeek = date.getDay()
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6
+    const isNight = hour >= 16
+
+    if (isWeekend && isNight) return prices.weekendNight
+    if (isWeekend && !isNight) return prices.weekendDay
+    if (!isWeekend && isNight) return prices.weekdayNight
+    return prices.weekdayDay
+  },
+
   toggleTimeSlot(e) {
     const index = e.currentTarget.dataset.index
     const slot = this.data.timeSlots[index]
@@ -97,11 +115,11 @@ Page({
       return s
     })
 
-    const selectedTimeSlots = timeSlots
-      .filter(s => s.selected)
-      .map(s => s.time)
-
-    const totalPrice = selectedTimeSlots.length * this.data.price
+    const selectedSlots = timeSlots.filter(s => s.selected)
+    const selectedTimeSlots = selectedSlots.map(s => s.time)
+    const totalPrice = selectedSlots.reduce((sum, slot) => {
+      return sum + this.getSlotPrice(slot.time)
+    }, 0)
 
     this.setData({
       timeSlots,
