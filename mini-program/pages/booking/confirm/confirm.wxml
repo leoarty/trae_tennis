@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="order-card">
+    <text class="card-title">预约信息</text>
+    <view class="info-row">
+      <text class="info-label">球场</text>
+      <text class="info-value">{{courtName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">日期</text>
+      <text class="info-value">{{date}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">时段</text>
+      <view class="time-tags">
+        <text class="time-tag" wx:for="{{timeSlots}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+    <view class="info-row price-row">
+      <text class="info-label">合计</text>
+      <text class="price-value">¥{{totalPrice}}</text>
+    </view>
+  </view>
+
+  <view class="contact-card">
+    <text class="card-title">联系人信息</text>
+    <view class="input-row">
+      <text class="input-label">姓名</text>
+      <input class="input-field" placeholder="请输入联系人姓名" value="{{contactName}}" bindinput="onNameInput" />
+    </view>
+    <view class="input-row">
+      <text class="input-label">电话</text>
+      <input class="input-field" type="number" placeholder="请输入联系电话" value="{{contactPhone}}" bindinput="onPhoneInput" />
+    </view>
+    <view class="input-row">
+      <text class="input-label">备注</text>
+      <textarea class="textarea-field" placeholder="请输入备注信息（选填）" value="{{remark}}" bindinput="onRemarkInput" />
+    </view>
+  </view>
+
+  <view class="submit-section">
+    <view class="price-summary">
+      <text class="summary-label">应付金额：</text>
+      <text class="summary-price">¥{{totalPrice}}</text>
+    </view>
+    <button class="submit-btn" bindtap="submitOrder">提交预约</button>
+  </view>
+</view>

@@ -29,6 +29,18 @@
     </view>
   </view>
 
+  <view class="booking-section">
+    <text class="section-title">网球场预约</text>
+    <view class="booking-card" bindtap="navigateToCourtList">
+      <view class="booking-icon">🎾</view>
+      <view class="booking-info">
+        <text class="booking-title">北京网球场预约</text>
+        <text class="booking-desc">选择球场 · 预约时段 · 即刻开拍</text>
+      </view>
+      <text class="booking-arrow">›</text>
+    </view>
+  </view>
+
   <view class="nav-section">
     <button class="nav-btn" bindtap="navigateToLogs">查看日志页面</button>
   </view>

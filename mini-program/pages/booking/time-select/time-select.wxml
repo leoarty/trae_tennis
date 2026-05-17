@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="court-info-bar">
+    <text class="court-name">{{courtName}}</text>
+    <text class="court-price">¥{{price}}/小时</text>
+  </view>
+
+  <view class="date-section">
+    <text class="section-title">选择日期</text>
+    <scroll-view class="date-list" scroll-x>
+      <view class="date-item {{selectedDate === item.date ? 'active' : ''}}" wx:for="{{dates}}" wx:key="date" bindtap="selectDate" data-date="{{item.date}}">
+        <text class="date-week">{{item.weekDay}}</text>
+        <text class="date-day">{{item.display}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="time-section">
+    <text class="section-title">选择时段</text>
+    <view class="time-grid">
+      <view class="time-item {{item.available ? '' : 'unavailable'}} {{item.selected ? 'selected' : ''}}" wx:for="{{timeSlots}}" wx:key="time" bindtap="toggleTimeSlot" data-index="{{index}}">
+        <text class="time-text">{{item.time}}</text>
+        <text class="time-status">{{item.available ? (item.selected ? '已选' : '可约') : '已满')}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="booking-bar">
+    <view class="booking-info">
+      <text class="selected-count">已选 {{selectedTimeSlots.length}} 个时段</text>
+      <text class="total-price">合计：¥{{totalPrice}}</text>
+    </view>
+    <button class="submit-btn {{selectedTimeSlots.length > 0 ? 'active' : ''}}" bindtap="submitBooking">确认预约</button>
+  </view>
+</view>
