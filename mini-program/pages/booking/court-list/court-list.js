@@ -9,7 +9,7 @@ Page({
         image: 'https://picsum.photos/400/200?random=1',
         tags: ['室内', '硬地', '灯光'],
         rating: 4.8,
-        bookingUrl: 'https://www.olympic.cn/'
+        bookingUrl: 'https://mp.weixin.qq.com/s?__biz=MzA5NjEyMDUyMA==&mid=2651012345&idx=1&sn=abc123'
       },
       {
         id: 2,
@@ -19,7 +19,7 @@ Page({
         image: 'https://picsum.photos/400/200?random=2',
         tags: ['室外', '硬地'],
         rating: 4.6,
-        bookingUrl: 'https://www.sport.gov.cn/'
+        bookingUrl: 'http://www.noscapp.cn/noscwechat/'
       },
       {
         id: 3,
@@ -29,7 +29,7 @@ Page({
         image: 'https://picsum.photos/400/200?random=3',
         tags: ['室内', '红土'],
         rating: 4.5,
-        bookingUrl: 'https://www.bjgyol.com.cn/'
+        bookingUrl: 'https://www.sun-park.com/?theme=dark#/booking/site#btns'
       },
       {
         id: 4,
@@ -39,7 +39,7 @@ Page({
         image: 'https://picsum.photos/400/200?random=4',
         tags: ['室外', '草地'],
         rating: 4.3,
-        bookingUrl: 'https://www.bjhdtiyu.com/'
+        bookingUrl: 'https://www.bjsports.gov.cn/'
       },
       {
         id: 5,
@@ -49,7 +49,7 @@ Page({
         image: 'https://picsum.photos/400/200?random=5',
         tags: ['室外', '硬地'],
         rating: 4.2,
-        bookingUrl: 'https://www.tiantansport.com/'
+        bookingUrl: 'https://www.bjdch.gov.cn/zwgk/sjgk/sjxz/whty/'
       }
     ],
     districtFilter: '全部',
