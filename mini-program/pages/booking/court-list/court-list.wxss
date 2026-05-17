@@ -112,8 +112,13 @@
   padding-top: 20rpx;
 }
 
+.price-info {
+  display: flex;
+  flex-direction: column;
+}
+
 .court-price {
-  font-size: 40rpx;
+  font-size: 36rpx;
   color: #ff4d4f;
   font-weight: bold;
 }
@@ -122,6 +127,12 @@
   font-size: 24rpx;
   color: #999;
   font-weight: normal;
+}
+
+.price-tip {
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 4rpx;
 }
 
 .book-btn {

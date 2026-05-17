@@ -25,7 +25,10 @@
           <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
         </view>
         <view class="court-footer">
-          <text class="court-price">¥{{item.price}}<text class="price-unit">/小时</text></text>
+          <view class="price-info">
+            <text class="court-price">¥{{item.priceRange}}<text class="price-unit">/小时</text></text>
+            <text class="price-tip">工作日/周末 白天/晚间</text>
+          </view>
           <text class="book-btn">预约</text>
         </view>
       </view>
