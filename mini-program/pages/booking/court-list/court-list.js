@@ -135,8 +135,9 @@ Page({
     const court = this.data.courts.find(c => c.id === courtId)
     const pricesStr = encodeURIComponent(JSON.stringify(court.prices))
     const courtTypesStr = encodeURIComponent(JSON.stringify(court.courtTypes))
+    const tagsStr = encodeURIComponent(JSON.stringify(court.tags))
     wx.navigateTo({
-      url: `/pages/booking/time-select/time-select?courtId=${courtId}&courtName=${court.name}&price=${court.price}&bookingUrl=${encodeURIComponent(court.bookingUrl)}&openTime=${court.openTime}&prices=${pricesStr}&courtTypes=${courtTypesStr}`
+      url: `/pages/booking/time-select/time-select?courtId=${courtId}&courtName=${court.name}&price=${court.price}&bookingUrl=${encodeURIComponent(court.bookingUrl)}&openTime=${court.openTime}&prices=${pricesStr}&courtTypes=${courtTypesStr}&address=${encodeURIComponent(court.address)}&image=${encodeURIComponent(court.image)}&rating=${court.rating}&tags=${tagsStr}`
     })
   }
 })

@@ -12,12 +12,17 @@ Page({
     selectedTimeSlots: [],
     dates: [],
     timeSlots: [],
-    totalPrice: 0
+    totalPrice: 0,
+    courtAddress: '',
+    courtImage: '',
+    courtRating: 0,
+    courtTags: []
   },
 
   onLoad(options) {
-    const { courtId, courtName, price, bookingUrl, openTime, prices, courtTypes } = options
+    const { courtId, courtName, price, bookingUrl, openTime, prices, courtTypes, address, image, rating, tags } = options
     const parsedCourtTypes = courtTypes ? JSON.parse(decodeURIComponent(courtTypes)) : []
+    const parsedTags = tags ? JSON.parse(decodeURIComponent(tags)) : []
     this.setData({
       courtId: parseInt(courtId),
       courtName,
@@ -29,7 +34,11 @@ Page({
       selectedCourtType: parsedCourtTypes.length > 0 ? parsedCourtTypes[0].type : '',
       dates: this.generateDates(),
       selectedDate: this.generateDates()[0].date,
-      timeSlots: this.generateTimeSlots(openTime || '08:00-22:00')
+      timeSlots: this.generateTimeSlots(openTime || '08:00-22:00'),
+      courtAddress: address || '',
+      courtImage: image || '',
+      courtRating: parseFloat(rating) || 0,
+      courtTags: parsedTags
     })
     wx.setNavigationBarTitle({
       title: '选择时段'
@@ -166,7 +175,11 @@ Page({
       date: this.data.selectedDate,
       timeSlots: this.data.selectedTimeSlots,
       totalPrice: this.data.totalPrice,
-      bookingUrl: this.data.bookingUrl
+      bookingUrl: this.data.bookingUrl,
+      courtAddress: this.data.courtAddress,
+      courtImage: this.data.courtImage,
+      courtRating: this.data.courtRating,
+      courtTags: this.data.courtTags
     }
 
     wx.navigateTo({

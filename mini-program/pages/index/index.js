@@ -50,5 +50,11 @@ Page({
     wx.navigateTo({
       url: '/pages/booking/court-list/court-list'
     })
+  },
+
+  navigateToMyCourts() {
+    wx.navigateTo({
+      url: '/pages/my-courts/my-courts'
+    })
   }
 })

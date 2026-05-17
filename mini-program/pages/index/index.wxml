@@ -39,9 +39,18 @@
       </view>
       <text class="booking-arrow">›</text>
     </view>
+    <view class="booking-card" bindtap="navigateToMyCourts">
+      <view class="booking-icon">📍</view>
+      <view class="booking-info">
+        <text class="booking-title">我的球场</text>
+        <text class="booking-desc">记录去过的球场 · 打卡回忆</text>
+      </view>
+      <text class="booking-arrow">›</text>
+    </view>
   </view>
 
   <view class="nav-section">
     <button class="nav-btn" bindtap="navigateToCourtList">立即预约球场</button>
+    <button class="nav-btn secondary" bindtap="navigateToMyCourts">查看我的球场</button>
   </view>
 </view>

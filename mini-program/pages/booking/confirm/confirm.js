@@ -1,5 +1,6 @@
 Page({
   data: {
+    courtId: null,
     courtName: '',
     date: '',
     timeSlots: [],
@@ -7,17 +8,26 @@ Page({
     bookingUrl: '',
     contactName: '',
     contactPhone: '',
-    remark: ''
+    remark: '',
+    courtAddress: '',
+    courtImage: '',
+    courtRating: 0,
+    courtTags: []
   },
 
   onLoad(options) {
     const bookingData = JSON.parse(decodeURIComponent(options.data))
     this.setData({
+      courtId: bookingData.courtId,
       courtName: bookingData.courtName,
       date: bookingData.date,
       timeSlots: bookingData.timeSlots,
       totalPrice: bookingData.totalPrice,
-      bookingUrl: bookingData.bookingUrl || ''
+      bookingUrl: bookingData.bookingUrl || '',
+      courtAddress: bookingData.courtAddress || '',
+      courtImage: bookingData.courtImage || '',
+      courtRating: bookingData.courtRating || 0,
+      courtTags: bookingData.courtTags || []
     })
     wx.setNavigationBarTitle({
       title: '确认预约'
@@ -40,6 +50,38 @@ Page({
     this.setData({
       remark: e.detail.value
     })
+  },
+
+  addVisitedCourt() {
+    try {
+      let visitedCourts = wx.getStorageSync('visitedCourts') || []
+      const courtExists = visitedCourts.some(court => court.courtId === this.data.courtId)
+
+      if (!courtExists) {
+        const newCourt = {
+          courtId: this.data.courtId,
+          name: this.data.courtName,
+          address: this.data.courtAddress,
+          image: this.data.courtImage,
+          rating: this.data.courtRating,
+          tags: this.data.courtTags,
+          visitDate: this.data.date,
+          visitTime: this.data.timeSlots,
+          totalPrice: this.data.totalPrice,
+          addedAt: Date.now()
+        }
+
+        visitedCourts.unshift(newCourt)
+        wx.setStorageSync('visitedCourts', visitedCourts)
+        wx.showToast({
+          title: '已添加到我的球场',
+          icon: 'success',
+          duration: 1500
+        })
+      }
+    } catch (e) {
+      console.error('添加球场记录失败', e)
+    }
   },
 
   submitOrder() {
@@ -75,6 +117,7 @@ Page({
       cancelText: '取消',
       success: (res) => {
         if (res.confirm) {
+          this.addVisitedCourt()
           wx.setClipboardData({
             data: this.data.bookingUrl,
             success: () => {

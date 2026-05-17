@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/my-courts/my-courts",
     "pages/booking/court-list/court-list",
     "pages/booking/time-select/time-select",
     "pages/booking/confirm/confirm",
