@@ -78,7 +78,7 @@ Page({
         duration: 2000,
         success: () => {
           setTimeout(() => {
-            wx.switchTab({
+            wx.reLaunch({
               url: '/pages/index/index'
             })
           }, 2000)

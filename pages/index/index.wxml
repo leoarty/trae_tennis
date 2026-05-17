@@ -42,6 +42,6 @@
   </view>
 
   <view class="nav-section">
-    <button class="nav-btn" bindtap="navigateToLogs">查看日志页面</button>
+    <button class="nav-btn" bindtap="navigateToCourtList">立即预约球场</button>
   </view>
 </view>
