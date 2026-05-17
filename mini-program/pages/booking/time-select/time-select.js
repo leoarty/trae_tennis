@@ -4,43 +4,48 @@ Page({
     courtName: '',
     price: 0,
     bookingUrl: '',
+    openTime: '08:00-22:00',
     selectedDate: '',
     selectedTimeSlots: [],
     dates: [],
-    timeSlots: [
-      { time: '06:00-07:00', available: true, selected: false, statusText: '可约' },
-      { time: '07:00-08:00', available: true, selected: false, statusText: '可约' },
-      { time: '08:00-09:00', available: false, selected: false, statusText: '已满' },
-      { time: '09:00-10:00', available: true, selected: false, statusText: '可约' },
-      { time: '10:00-11:00', available: true, selected: false, statusText: '可约' },
-      { time: '11:00-12:00', available: false, selected: false, statusText: '已满' },
-      { time: '12:00-13:00', available: true, selected: false, statusText: '可约' },
-      { time: '13:00-14:00', available: true, selected: false, statusText: '可约' },
-      { time: '14:00-15:00', available: true, selected: false, statusText: '可约' },
-      { time: '15:00-16:00', available: false, selected: false, statusText: '已满' },
-      { time: '16:00-17:00', available: true, selected: false, statusText: '可约' },
-      { time: '17:00-18:00', available: true, selected: false, statusText: '可约' },
-      { time: '18:00-19:00', available: true, selected: false, statusText: '可约' },
-      { time: '19:00-20:00', available: false, selected: false, statusText: '已满' },
-      { time: '20:00-21:00', available: true, selected: false, statusText: '可约' },
-      { time: '21:00-22:00', available: true, selected: false, statusText: '可约' }
-    ],
+    timeSlots: [],
     totalPrice: 0
   },
 
   onLoad(options) {
-    const { courtId, courtName, price, bookingUrl } = options
+    const { courtId, courtName, price, bookingUrl, openTime } = options
     this.setData({
       courtId: parseInt(courtId),
       courtName,
       price: parseInt(price),
       bookingUrl: bookingUrl || '',
+      openTime: openTime || '08:00-22:00',
       dates: this.generateDates(),
-      selectedDate: this.generateDates()[0].date
+      selectedDate: this.generateDates()[0].date,
+      timeSlots: this.generateTimeSlots(openTime || '08:00-22:00')
     })
     wx.setNavigationBarTitle({
       title: '选择时段'
     })
+  },
+
+  generateTimeSlots(openTime) {
+    const slots = []
+    const [start, end] = openTime.split('-')
+    const startHour = parseInt(start.split(':')[0])
+    const endHour = parseInt(end.split(':')[0])
+
+    for (let hour = startHour; hour < endHour; hour++) {
+      const nextHour = hour + 1
+      const timeStr = `${String(hour).padStart(2, '0')}:00-${String(nextHour).padStart(2, '0')}:00`
+      slots.push({
+        time: timeStr,
+        available: Math.random() > 0.3,
+        selected: false,
+        statusText: Math.random() > 0.3 ? '可约' : '已满'
+      })
+    }
+    return slots
   },
 
   generateDates() {
@@ -68,11 +73,7 @@ Page({
     const date = e.currentTarget.dataset.date
     this.setData({
       selectedDate: date,
-      timeSlots: this.data.timeSlots.map(slot => ({
-        ...slot,
-        selected: false,
-        statusText: slot.available ? '可约' : '已满'
-      })),
+      timeSlots: this.generateTimeSlots(this.data.openTime),
       selectedTimeSlots: [],
       totalPrice: 0
     })

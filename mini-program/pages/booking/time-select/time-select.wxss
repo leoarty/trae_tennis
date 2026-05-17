@@ -13,10 +13,21 @@
   border-bottom: 1rpx solid #eee;
 }
 
+.court-info-left {
+  display: flex;
+  flex-direction: column;
+}
+
 .court-name {
   font-size: 32rpx;
   font-weight: bold;
   color: #333;
+}
+
+.court-time {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
 }
 
 .court-price {
