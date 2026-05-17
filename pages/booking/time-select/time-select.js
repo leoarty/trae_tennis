@@ -3,6 +3,7 @@ Page({
     courtId: null,
     courtName: '',
     price: 0,
+    bookingUrl: '',
     selectedDate: '',
     selectedTimeSlots: [],
     dates: [],
@@ -28,11 +29,12 @@ Page({
   },
 
   onLoad(options) {
-    const { courtId, courtName, price } = options
+    const { courtId, courtName, price, bookingUrl } = options
     this.setData({
       courtId: parseInt(courtId),
       courtName,
       price: parseInt(price),
+      bookingUrl: bookingUrl || '',
       dates: this.generateDates(),
       selectedDate: this.generateDates()[0].date
     })
@@ -121,7 +123,8 @@ Page({
       courtName: this.data.courtName,
       date: this.data.selectedDate,
       timeSlots: this.data.selectedTimeSlots,
-      totalPrice: this.data.totalPrice
+      totalPrice: this.data.totalPrice,
+      bookingUrl: this.data.bookingUrl
     }
 
     wx.navigateTo({

@@ -8,7 +8,8 @@ Page({
         price: 120,
         image: 'https://picsum.photos/400/200?random=1',
         tags: ['室内', '硬地', '灯光'],
-        rating: 4.8
+        rating: 4.8,
+        bookingUrl: 'https://www.olympic.cn/'
       },
       {
         id: 2,
@@ -17,7 +18,8 @@ Page({
         price: 100,
         image: 'https://picsum.photos/400/200?random=2',
         tags: ['室外', '硬地'],
-        rating: 4.6
+        rating: 4.6,
+        bookingUrl: 'https://www.sport.gov.cn/'
       },
       {
         id: 3,
@@ -26,7 +28,8 @@ Page({
         price: 80,
         image: 'https://picsum.photos/400/200?random=3',
         tags: ['室内', '红土'],
-        rating: 4.5
+        rating: 4.5,
+        bookingUrl: 'https://www.bjgyol.com.cn/'
       },
       {
         id: 4,
@@ -35,7 +38,8 @@ Page({
         price: 90,
         image: 'https://picsum.photos/400/200?random=4',
         tags: ['室外', '草地'],
-        rating: 4.3
+        rating: 4.3,
+        bookingUrl: 'https://www.bjhdtiyu.com/'
       },
       {
         id: 5,
@@ -44,7 +48,8 @@ Page({
         price: 70,
         image: 'https://picsum.photos/400/200?random=5',
         tags: ['室外', '硬地'],
-        rating: 4.2
+        rating: 4.2,
+        bookingUrl: 'https://www.tiantansport.com/'
       }
     ],
     districtFilter: '全部',
@@ -68,7 +73,7 @@ Page({
     const courtId = e.currentTarget.dataset.id
     const court = this.data.courts.find(c => c.id === courtId)
     wx.navigateTo({
-      url: `/pages/booking/time-select/time-select?courtId=${courtId}&courtName=${court.name}&price=${court.price}`
+      url: `/pages/booking/time-select/time-select?courtId=${courtId}&courtName=${court.name}&price=${court.price}&bookingUrl=${encodeURIComponent(court.bookingUrl)}`
     })
   }
 })

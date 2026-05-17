@@ -4,6 +4,7 @@ Page({
     date: '',
     timeSlots: [],
     totalPrice: 0,
+    bookingUrl: '',
     contactName: '',
     contactPhone: '',
     remark: ''
@@ -15,7 +16,8 @@ Page({
       courtName: bookingData.courtName,
       date: bookingData.date,
       timeSlots: bookingData.timeSlots,
-      totalPrice: bookingData.totalPrice
+      totalPrice: bookingData.totalPrice,
+      bookingUrl: bookingData.bookingUrl || ''
     })
     wx.setNavigationBarTitle({
       title: '确认预约'
@@ -66,24 +68,18 @@ Page({
       return
     }
 
-    wx.showLoading({
-      title: '提交中...'
-    })
-
-    setTimeout(() => {
-      wx.hideLoading()
-      wx.showToast({
-        title: '预约成功',
-        icon: 'success',
-        duration: 2000,
-        success: () => {
-          setTimeout(() => {
-            wx.reLaunch({
-              url: '/pages/index/index'
-            })
-          }, 2000)
+    wx.showModal({
+      title: '即将跳转',
+      content: `将跳转至「${this.data.courtName}」官方平台进行付费预约，是否继续？`,
+      confirmText: '去预约',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: `/pages/booking/webview/webview?url=${encodeURIComponent(this.data.bookingUrl)}&title=${encodeURIComponent(this.data.courtName)}`
+          })
         }
-      })
-    }, 1500)
+      }
+    })
   }
 })
