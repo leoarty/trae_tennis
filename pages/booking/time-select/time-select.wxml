@@ -1,6 +1,9 @@
 <view class="container">
   <view class="court-info-bar">
-    <text class="court-name">{{courtName}}</text>
+    <view class="court-info-left">
+      <text class="court-name">{{courtName}}</text>
+      <text class="court-time">营业时间：{{openTime}}</text>
+    </view>
     <text class="court-price">¥{{price}}/小时</text>
   </view>
 
