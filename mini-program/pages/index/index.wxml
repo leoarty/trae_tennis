@@ -1,0 +1,35 @@
+<view class="container">
+  <view class="userinfo">
+    <block wx:if="{{!hasUserInfo}}">
+      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile" class="userinfo-btn">
+        获取头像昵称
+      </button>
+      <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="userinfo-btn">
+        获取头像昵称
+      </button>
+    </block>
+    <block wx:else>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+
+  <view class="counter-section">
+    <text class="counter-title">计数器示例</text>
+    <view class="counter-display">
+      <text class="counter-number">{{count}}</text>
+    </view>
+    <view class="counter-buttons">
+      <button class="counter-btn minus" bindtap="decrement">-</button>
+      <button class="counter-btn plus" bindtap="increment">+</button>
+    </view>
+  </view>
+
+  <view class="nav-section">
+    <button class="nav-btn" bindtap="navigateToLogs">查看日志页面</button>
+  </view>
+</view>
