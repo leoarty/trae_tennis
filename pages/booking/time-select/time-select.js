@@ -6,6 +6,8 @@ Page({
     prices: null,
     bookingUrl: '',
     openTime: '08:00-22:00',
+    courtTypes: [],
+    selectedCourtType: '',
     selectedDate: '',
     selectedTimeSlots: [],
     dates: [],
@@ -14,7 +16,8 @@ Page({
   },
 
   onLoad(options) {
-    const { courtId, courtName, price, bookingUrl, openTime, prices } = options
+    const { courtId, courtName, price, bookingUrl, openTime, prices, courtTypes } = options
+    const parsedCourtTypes = courtTypes ? JSON.parse(decodeURIComponent(courtTypes)) : []
     this.setData({
       courtId: parseInt(courtId),
       courtName,
@@ -22,6 +25,8 @@ Page({
       prices: prices ? JSON.parse(decodeURIComponent(prices)) : null,
       bookingUrl: bookingUrl || '',
       openTime: openTime || '08:00-22:00',
+      courtTypes: parsedCourtTypes,
+      selectedCourtType: parsedCourtTypes.length > 0 ? parsedCourtTypes[0].type : '',
       dates: this.generateDates(),
       selectedDate: this.generateDates()[0].date,
       timeSlots: this.generateTimeSlots(openTime || '08:00-22:00')
@@ -29,6 +34,21 @@ Page({
     wx.setNavigationBarTitle({
       title: '选择时段'
     })
+  },
+
+  selectCourtType(e) {
+    const type = e.currentTarget.dataset.type
+    this.setData({
+      selectedCourtType: type,
+      timeSlots: this.generateTimeSlots(this.data.openTime),
+      selectedTimeSlots: [],
+      totalPrice: 0
+    })
+  },
+
+  getPriceAdjust() {
+    const type = this.data.courtTypes.find(t => t.type === this.data.selectedCourtType)
+    return type ? type.priceAdjust : 1.0
   },
 
   generateTimeSlots(openTime) {
@@ -91,10 +111,13 @@ Page({
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6
     const isNight = hour >= 16
 
-    if (isWeekend && isNight) return prices.weekendNight
-    if (isWeekend && !isNight) return prices.weekendDay
-    if (!isWeekend && isNight) return prices.weekdayNight
-    return prices.weekdayDay
+    let basePrice
+    if (isWeekend && isNight) basePrice = prices.weekendNight
+    else if (isWeekend && !isNight) basePrice = prices.weekendDay
+    else if (!isWeekend && isNight) basePrice = prices.weekdayNight
+    else basePrice = prices.weekdayDay
+
+    return Math.round(basePrice * this.getPriceAdjust())
   },
 
   toggleTimeSlot(e) {
