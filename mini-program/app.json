@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/booking/court-list/court-list",
     "pages/booking/time-select/time-select",
-    "pages/booking/confirm/confirm"
+    "pages/booking/confirm/confirm",
+    "pages/booking/webview/webview"
   ],
   "window": {
     "backgroundTextStyle": "light",
