@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="filter-bar">
+    <picker mode="selector" range="{{districts}}" value="0" bindchange="onDistrictChange">
+      <view class="picker">
+        <text class="picker-label">区域：</text>
+        <text class="picker-value">{{districtFilter}}</text>
+        <text class="picker-arrow">▼</text>
+      </view>
+    </picker>
+  </view>
+
+  <view class="court-list">
+    <view class="court-card" wx:for="{{courts}}" wx:key="id" bindtap="selectCourt" data-id="{{item.id}}">
+      <image class="court-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="court-info">
+        <view class="court-header">
+          <text class="court-name">{{item.name}}</text>
+          <view class="court-rating">
+            <text class="rating-star">★</text>
+            <text class="rating-value">{{item.rating}}</text>
+          </view>
+        </view>
+        <text class="court-address">{{item.address}}</text>
+        <view class="court-types">
+          <text class="type-tag" wx:for="{{item.courtTypes}}" wx:for-item="type" wx:key="type">{{type.type}} {{type.count}}片</text>
+        </view>
+        <view class="court-footer">
+          <view class="price-info">
+            <text class="court-price">¥{{item.priceRange}}<text class="price-unit">/小时</text></text>
+            <text class="price-tip">工作日/周末 白天/晚间</text>
+          </view>
+          <text class="book-btn">预约</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

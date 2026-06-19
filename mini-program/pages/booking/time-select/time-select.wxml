@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="court-info-bar">
+    <view class="court-info-left">
+      <text class="court-name">{{courtName}}</text>
+      <text class="court-time">营业时间：{{openTime}}</text>
+    </view>
+    <text class="court-price">¥{{price}}/小时</text>
+  </view>
+
+  <view class="court-type-section" wx:if="{{courtTypes.length > 0}}">
+    <text class="section-title">选择场地类型</text>
+    <view class="court-type-list">
+      <view class="court-type-item {{selectedCourtType === item.type ? 'active' : ''}}" wx:for="{{courtTypes}}" wx:key="type" bindtap="selectCourtType" data-type="{{item.type}}">
+        <text class="type-name">{{item.type}}</text>
+        <text class="type-count">{{item.count}}片</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="date-section">
+    <text class="section-title">选择日期</text>
+    <scroll-view class="date-list" scroll-x>
+      <view class="date-item {{selectedDate === item.date ? 'active' : ''}}" wx:for="{{dates}}" wx:key="date" bindtap="selectDate" data-date="{{item.date}}">
+        <text class="date-week">{{item.weekDay}}</text>
+        <text class="date-day">{{item.display}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="time-section">
+    <view class="section-header">
+      <text class="section-title">选择时段</text>
+      <view class="price-legend" wx:if="{{prices}}">
+        <text class="legend-item">工作日白天 ¥{{prices.weekdayDay}}</text>
+        <text class="legend-item">工作日晚间 ¥{{prices.weekdayNight}}</text>
+        <text class="legend-item">周末白天 ¥{{prices.weekendDay}}</text>
+        <text class="legend-item">周末晚间 ¥{{prices.weekendNight}}</text>
+      </view>
+    </view>
+    <view class="time-grid">
+      <view class="time-item {{item.available ? '' : 'unavailable'}} {{item.selected ? 'selected' : ''}}" wx:for="{{timeSlots}}" wx:key="time" bindtap="toggleTimeSlot" data-index="{{index}}">
+        <text class="time-text">{{item.time}}</text>
+        <text class="time-price" wx:if="{{prices}}">¥{{item.price || getSlotPrice(item.time)}}</text>
+        <text class="time-status">{{item.statusText}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="booking-bar">
+    <view class="booking-info">
+      <text class="selected-count">已选 {{selectedTimeSlots.length}} 个时段</text>
+      <text class="total-price">合计：¥{{totalPrice}}</text>
+    </view>
+    <button class="submit-btn {{selectedTimeSlots.length > 0 ? 'active' : ''}}" bindtap="submitBooking">确认预约</button>
+  </view>
+</view>

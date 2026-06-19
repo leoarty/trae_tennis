@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="header">
+    <text class="title">我的球场</text>
+    <text class="subtitle">已打卡 {{visitedCourts.length}} 个球场</text>
+    <button class="clear-btn" wx:if="{{visitedCourts.length > 0}}" bindtap="clearAll">清空记录</button>
+  </view>
+
+  <view class="empty-state" wx:if="{{!loading && visitedCourts.length === 0}}">
+    <text class="empty-icon">🎾</text>
+    <text class="empty-text">还没有去过球场</text>
+    <button class="go-btn" bindtap="goToCourtList">去预约球场</button>
+  </view>
+
+  <view class="court-list" wx:if="{{!loading && visitedCourts.length > 0}}">
+    <view class="court-card" wx:for="{{visitedCourts}}" wx:key="id">
+      <view class="court-header">
+        <text class="court-name">{{item.name}}</text>
+        <text class="court-date">{{item.visitDate}}</text>
+      </view>
+      <view class="court-info">
+        <text class="court-address">{{item.address}}</text>
+        <view class="court-details" wx:if="{{item.details}}">
+          <text class="detail-item" wx:if="{{item.courtType}}">{{item.courtType}}</text>
+          <text class="detail-item" wx:if="{{item.timeSlots}}">{{item.timeSlots.join('、')}}</text>
+          <text class="detail-item" wx:if="{{item.totalPrice}}">¥{{item.totalPrice}}</text>
+        </view>
+      </view>
+      <view class="court-footer">
+        <text class="visit-count">已打卡 {{item.visitCount || 1}} 次</text>
+        <button class="delete-btn" bindtap="deleteCourt" data-index="{{index}}">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>
